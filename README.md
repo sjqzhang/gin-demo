@@ -108,3 +108,16 @@ VUE_APP_BASE_URL = http://localhost:8081/api/
 ```bash
 yarn serve
 ```
+
+
+## 如何改造增加单元测试
+
+- 先运行容器 `docker-compose up -d` https://github.com/sjqzhang/gmock/blob/main/docker-compose.yaml
+- 创建mock文件夹，用于存放单元测试文件
+- 增加init.go文件，用于初始化mock服务
+- 增加AuthMiddlewareMock.go解决权限问题
+- 引入util.DumpOptions，用于打印请求参数
+- 使用controller目录的gen.py生成单元测试文件
+- 修改单元测试文件，增加单元测试用例
+
+

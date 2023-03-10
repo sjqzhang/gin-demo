@@ -20,13 +20,12 @@ func init() {
 
 	MockDB = gmock.NewGORMFromDSN("./db", "mysql", "root:mock@tcp(127.0.0.1:63307)/mock?charset=utf8&parseTime=True&loc=Local")
 
-	InitConfig("mock")
+	InitConfig()
 	common.InitDB()
-
 
 	r := gin.Default()
 
-	r.Use(middleware.AuthMiddlewareMock(),util.DumpWithOptions(true, true,true,false,false, func(dumpStr string) {
+	r.Use(middleware.AuthMiddlewareMock(), util.DumpWithOptions(true, true, true, false, false, func(dumpStr string) {
 		fmt.Println(dumpStr)
 	}))
 
@@ -43,15 +42,12 @@ func Reset() {
 	MockDB.ResetAndInit()
 }
 
-func InitConfig(env string) {
+func InitConfig() {
 	workDir, _ := os.Getwd()
-	workDir=filepath.Dir(workDir)
+	workDir = filepath.Dir(workDir)
 	os.Chdir(workDir)
-	if env == "" {
-		viper.SetConfigName("application")
-	} else {
-		viper.SetConfigName("application-" + env)
-	}
+
+	viper.SetConfigName("application")
 
 	viper.SetConfigType("yml")
 	viper.AddConfigPath(workDir + "/config")

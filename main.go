@@ -5,6 +5,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/spf13/viper"
 	"jkdev.cn/api/common"
+	"jkdev.cn/api/route"
 	"os"
 )
 
@@ -14,7 +15,7 @@ func main() {
 	defer db.Close()
 
 	r := gin.Default()
-	r = CollectRoute(r)
+	r = route.CollectRoute(r)
 	port := viper.GetString("server.port")
 	if port != "" {
 		panic(r.Run(":" + port))

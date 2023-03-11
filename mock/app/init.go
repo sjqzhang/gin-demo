@@ -7,6 +7,7 @@ import (
 	"github.com/sjqzhang/gmock/mockdb"
 	"github.com/sjqzhang/gmock/util"
 	"github.com/spf13/viper"
+	"io/ioutil"
 	"jkdev.cn/api/common"
 	"jkdev.cn/api/middleware"
 	"jkdev.cn/api/route"
@@ -18,7 +19,17 @@ var MockDB *mockdb.MockGORM
 
 func init() {
 
+	workDir, _ := os.Getwd()
+	workDir = filepath.Dir(workDir)
+	os.Chdir(workDir)
+
 	MockDB = gmock.NewGORMFromDSN("./db", "mysql", "root:mock@tcp(127.0.0.1:63307)/mock?charset=utf8&parseTime=True&loc=Local")
+
+	b,e:=ioutil.ReadFile("./db/ddl.txt")
+	if e!=nil{
+		panic(e)
+	}
+	MockDB.InitSchemas(string(b))
 
 	InitConfig()
 	common.InitDB()
@@ -44,8 +55,6 @@ func Reset() {
 
 func InitConfig() {
 	workDir, _ := os.Getwd()
-	workDir = filepath.Dir(workDir)
-	os.Chdir(workDir)
 
 	viper.SetConfigName("application")
 

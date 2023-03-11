@@ -1,0 +1,16 @@
+pyzmq==23.2.0
+PyMySQL==1.0.2
+kafka-python==2.0.2
+redis==3.5.3
+PyYAML==5.3.1
+pyquery==1.4.0
+elasticsearch==8.3.1
+Flask==2.0.1
+requests==2.25.0
+pymongo==4.2.0
+openpyxl==3.0.10
+xlrd==2.0.1
+Jinja2==3.1.2
+dsnparse==0.1.15
+XlsxWriter==3.0.3
+pika==1.2.0
